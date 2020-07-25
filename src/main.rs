@@ -11,7 +11,10 @@ async fn main() {
     let hello = warp::path!("hello" / String)
         .map(|name| format!("Hello, {}!", name));
 
+
+    println!("Starting server on port {}", port);
     warp::serve(hello)
-        .run(([127, 0, 0, 1], port))
+        .run(([0, 0, 0, 0], port))
         .await;
+    println!("Server has been terminate");
 }
