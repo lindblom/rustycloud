@@ -12,7 +12,7 @@ async fn main() {
 
     let hello = warp::path!("hello" / String)
         .map(|name| format!("Hello, {}!", name))
-        .with(warp::reply::with::header("Cache-Control", HeaderValue::from_static("no-cache")));
+        .with(warp::reply::with::header("Cache-Control", HeaderValue::from_static("no-store")));
 
 
     println!("Starting server on port {}", port);
