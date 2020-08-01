@@ -1,3 +1,4 @@
+use warp::http::header::HeaderValue;
 use warp::Filter;
 use std::env;
 
@@ -8,8 +9,10 @@ async fn main() {
         .parse::<u16>()
         .expect("Port env var not set to a valid u16");
     // GET /hello/warp => 200 OK with body "Hello, warp!"
+
     let hello = warp::path!("hello" / String)
-        .map(|name| format!("Hello, {}!", name));
+        .map(|name| format!("Hello, {}!", name))
+        .with(warp::reply::with::header("Cache-Control", HeaderValue::from_static("no-cache")));
 
 
     println!("Starting server on port {}", port);
